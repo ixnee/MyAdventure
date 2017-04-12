@@ -12,31 +12,28 @@ import java.util.ArrayList;
  *  @author iXNÈE
  *  @version Mar 30, 2017
  */
-public class EnhancedRoom
-    extends Room
+public class EnhancedPlayer
+    extends Player
 {
-    private List<Item> contents;
+    private List<Item> inventory;
 
     // ----------------------------------------------------------
     /**
-     * Create a new EnhancedRoom object.
-     * @param description
+     * Create a new EnhancedPlayer object.
      */
-    public EnhancedRoom(String description)
+    public EnhancedPlayer()
     {
-        super(description);
-        contents = new ArrayList<>();
+        super();
+        inventory = new ArrayList<>();
     }
 
     public void addItem(Item item) {
 
-        // TODO: implement this method
-
-        contents.add(item);
+        inventory.add(item);
     }
 
-    public boolean containsItem(String itemName) {
-        for (Item item: contents)
+    public boolean hasItem(String itemName) {
+        for (Item item: inventory)
         {
             if (itemName.equals(item.getName()))
             {
@@ -47,7 +44,7 @@ public class EnhancedRoom
     }
 
     public Item getItem(String itemName) {
-        for (Item item : contents)
+        for (Item item : inventory)
         {
             // assert containsItem(itemName)
             if (itemName.equals(item.getName()))
@@ -60,29 +57,24 @@ public class EnhancedRoom
     }
 
     public void removeItem(Item item) {
-        contents.remove(item);
+        inventory.remove(item);
     }
 
-    @Override
-    public String getLongDescription() {
+    public String listInventory() {
         StringBuilder sb = new StringBuilder();
-        sb.append(super.getLongDescription());
-        sb.append("You see ");
-        String[] itemNames = new String[contents.size()];
+        sb.append("You have ");
+        String[] itemNames = new String[inventory.size()];
         if (itemNames.length > 0)
         {
             for (int i = 0; i < itemNames.length; i++)
             {
-                itemNames[i] = "the " + contents.get(i).getName();
+                itemNames[i] = "the " + inventory.get(i).getName();
             }
             sb.append(Message.commaSeparatedList(itemNames));
+            sb.append(".");
+            sb.append("<br>");
+            return sb.toString();
         }
-        else
-        {
-            sb.append("nothing in the room");
-        }
-        sb.append(".");
-        sb.append("<br>");
-        return sb.toString();
+        return Message.inventoryEmptyMessage();
     }
 }
