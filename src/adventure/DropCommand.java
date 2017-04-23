@@ -5,7 +5,7 @@ package adventure;
  *  Follow it with additional details about its purpose, what abstraction
  *  it represents, and how to use it.
  *
- *  @author iXNÈE
+ *  @author Lisa Balogh
  *  @version Apr 11, 2017
  */
 public class DropCommand
@@ -18,7 +18,7 @@ public class DropCommand
         EnhancedRoom room = (EnhancedRoom) playerArg.getCurrentRoom();
 
         if (!this.hasSecondWord()) {
-            return "What do you want to drop?";
+            return Message.noSecondWordMessage("drop");
         }
 
         // access the item via the second word
@@ -27,7 +27,14 @@ public class DropCommand
         if (player.hasItem(nounString))
         {
             Item item = player.getItem(nounString);
+            String roomName = room.getShortDescription();
             String objName = item.getName();
+            if (objName.equals("ruby") &&
+                roomName.equals("in the pawn shop"))
+            {
+                player.sethasWon();
+                return Message.youWinMessage();
+            }
             player.removeItem(item);
             room.addItem(item);
             return Message.dropSuccessMessage(objName);

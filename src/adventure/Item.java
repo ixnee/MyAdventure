@@ -1,11 +1,9 @@
 package adventure;
 // -------------------------------------------------------------------------
 /**
- *  Write a one-sentence summary of your class here.
- *  Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  A class for creating items and storing information about them.
  *
- *  @author iXNÈE
+ *  @author Lisa Balogh
  *  @version Mar 29, 2017
  */
 public class Item
@@ -13,6 +11,11 @@ public class Item
     private final String name;
     private String description;
     private int weight;
+    private boolean portable;
+    private boolean edible;
+    private boolean hasSmell;
+    private boolean lockable;
+    private boolean isLocked;
 
     // ----------------------------------------------------------
     /**
@@ -22,6 +25,12 @@ public class Item
     public Item(String name)
     {
         this.name = name;
+        description = null;
+        portable = true;
+        edible = false;
+        hasSmell = false;
+        lockable = false;
+        isLocked = false;
     }
 
     // ----------------------------------------------------------
@@ -72,6 +81,101 @@ public class Item
     public void setWeight(int weight)
     {
         this.weight = weight;
+    }
+
+ // ----------------------------------------------------------
+    /**
+     * Get the current value of portable.
+     * @return true if item is portable, false if not.
+     */
+    public boolean isPortable()
+    {
+        return portable;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Makes this object non-portable.
+     */
+    public void notPortable()
+    {
+        this.portable = false;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of edible.
+     * @return true if item is edible, false if not.
+     */
+    public boolean isEdible()
+    {
+        return edible;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Makes this object edible.
+     */
+    public void setEdible()
+    {
+        this.edible = true;
+    }
+
+ // ----------------------------------------------------------
+    /**
+     * Get the current value of edible.
+     * @return true if item is edible, false if not.
+     */
+    public boolean hasSmell()
+    {
+        return hasSmell;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Makes this object edible.
+     */
+    public void setHasSmell()
+    {
+        this.hasSmell = true;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of lockable.
+     * @return true if item is edible, false if not.
+     */
+    public boolean isLockable()
+    {
+        return lockable;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Makes this object lockable.
+     */
+    public void setLockable()
+    {
+        this.lockable = true;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of isLocked.
+     * @return true if item is locked, false if not.
+     */
+    public boolean isLocked()
+    {
+        return isLocked;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Makes this object lockable.
+     */
+    public void setisLocked()
+    {
+        this.isLocked = true;
     }
 
 

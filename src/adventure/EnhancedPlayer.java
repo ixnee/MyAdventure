@@ -5,16 +5,17 @@ import java.util.ArrayList;
 
 // -------------------------------------------------------------------------
 /**
- *  Write a one-sentence summary of your class here.
- *  Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  An enhanced player class to support extra methods.
  *
- *  @author iXNÈE
+ *  @author Lisa Balogh
  *  @version Mar 30, 2017
  */
 public class EnhancedPlayer
     extends Player
 {
+    private boolean hasEatenPeanutButter;
+    private boolean hasWon;
+
     private List<Item> inventory;
 
     // ----------------------------------------------------------
@@ -25,15 +26,31 @@ public class EnhancedPlayer
     {
         super();
         inventory = new ArrayList<>();
+        hasEatenPeanutButter = false;
+        hasWon = false;
     }
 
-    public void addItem(Item item) {
-
-        inventory.add(item);
+    // ----------------------------------------------------------
+    /**
+     * Adds an item to the inventory.
+     * @param item the item to be added.
+     */
+    public void addItem(Item item)
+    {
+        {
+            inventory.add(item);
+        }
     }
 
-    public boolean hasItem(String itemName) {
-        for (Item item: inventory)
+    // ----------------------------------------------------------
+    /**
+     * Determines whether the player has an item.
+     * @param itemName the item
+     * @return whether the player has the item.
+     */
+    public boolean hasItem(String itemName)
+    {
+        for (Item item : inventory)
         {
             if (itemName.equals(item.getName()))
             {
@@ -43,7 +60,14 @@ public class EnhancedPlayer
         return false;
     }
 
-    public Item getItem(String itemName) {
+    // ----------------------------------------------------------
+    /**
+     * A getter for an item in the inventory.
+     * @param itemName the item to retrieve.
+     * @return the item.
+     */
+    public Item getItem(String itemName)
+    {
         for (Item item : inventory)
         {
             // assert containsItem(itemName)
@@ -56,11 +80,87 @@ public class EnhancedPlayer
         return null;
     }
 
-    public void removeItem(Item item) {
+    // ----------------------------------------------------------
+    /**
+     * A getter for the current size of the inventory.
+     * @return the current size of the inventory.
+     */
+    public int getInventorySize()
+    {
+        int inventorySize = inventory.size();
+        return inventorySize;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * A getter for the current inventory weight.
+     * @return the current inventory weight.
+     */
+    public int getInventoryWeight()
+    {
+        int inventoryWeight = 0;
+        for (Item item : inventory)
+        {
+            inventoryWeight = inventoryWeight + item.getWeight();
+        }
+        return inventoryWeight;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * A method to remove an item from the inventory.
+     * @param item the item to be removed.
+     */
+    public void removeItem(Item item)
+    {
         inventory.remove(item);
     }
 
-    public String listInventory() {
+    // ----------------------------------------------------------
+    /**
+     * A method to determine whether the peanut-butter has been eaten.
+     * @return whether the peanut-butter has been eaten.
+     */
+    public boolean hasEatenPeanutButter()
+    {
+        return hasEatenPeanutButter;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * A setter to indicate that the peanut-butter has been eaten.
+     */
+    public void setPeanutButter()
+    {
+        hasEatenPeanutButter = true;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * A method to determine whether the player has won.
+     * @return whether the player has won.
+     */
+    public boolean hasWon()
+    {
+        return hasWon;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * A setter to indicate that the player has won.
+     */
+    public void sethasWon()
+    {
+        hasWon = true;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * A method to print out a list of the entire inventory.
+     * @return a list of the current inventory
+     */
+    public String listInventory()
+    {
         StringBuilder sb = new StringBuilder();
         sb.append("You have ");
         String[] itemNames = new String[inventory.size()];

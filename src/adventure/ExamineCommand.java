@@ -20,16 +20,10 @@ public class ExamineCommand
 
         if (!this.hasSecondWord())
         {
-            return "The examine command requires an object to examine.";
+            return Message.noSecondWordMessage("examine");
         }
 
         String nounString = this.getSecondWord();
-
-        if (nounString.equals("inventory"))
-        {
-
-            return player.listInventory();
-        }
 
         if (room.containsItem(nounString) || player.hasItem(nounString))
         {
@@ -41,9 +35,16 @@ public class ExamineCommand
             {
                 item = player.getItem(nounString);
             }
-            if (item.getDescription() == null || item.getDescription().equals(""))
+            if (item.getDescription() == null ||
+                item.getDescription().equals(""))
             {
                 return Message.examineDefaultMessage(nounString);
+            }
+            if (item.isLocked())
+            {
+                String lockedDescription = item.getDescription() +
+                    " " + Message.objectIsLockedMessage(nounString);
+                return lockedDescription;
             }
             return item.getDescription();
         }

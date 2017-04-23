@@ -117,6 +117,15 @@ public class Message {
     }
 
     /**
+     * Message added when you try to lock an object that is already locked.
+     * @param objName second word in command
+     * @return object is locked message
+     */
+    public static final String objectAlreadyLockedMessage(String objName) {
+        return "The " + objName + " is already locked.";
+    }
+
+    /**
      * Message you get when you try to take a locked object.
      * @param objName second word in command
      * @return can't take locked message
@@ -150,6 +159,24 @@ public class Message {
      */
     public static final String lockNotPossibleMessage(String objName) {
         return "You can't lock the " + objName + ".";
+    }
+
+    /**
+     * Message when trying to smell something that has no smell.
+     * @param objName second word in command
+     * @return object has no smell message
+     */
+    public static final String hasNoSmellMessage(String objName) {
+        return "The " + objName + " has no smell.";
+    }
+
+    /**
+     * Message when successfully smelling something.
+     * @param objName second word in command
+     * @return smell object message
+     */
+    public static final String smellSuccessMessage(String objName) {
+        return "You smell the " + objName + ". Delightful!";
     }
 
     /**
@@ -191,6 +218,15 @@ public class Message {
     }
 
     /**
+     * Message when you try to pick up an object that isn't portable.
+     * @param objName second word in command
+     * @return take object message
+     */
+    public static final String takeFailMessage(String objName) {
+        return "You can't take the " + objName + " because it isn't portable.";
+    }
+
+    /**
      * Message when you successfully drop an object.
      * @param objName second word in command
      * @return drop object message
@@ -225,6 +261,14 @@ public class Message {
         return "You're not carrying anything.";
     }
 
+    /**
+     * Message you get when a second word is not provided on a move.
+     * @param commandString the command passed to the message
+     * @return inventory empty message
+     */
+    public static final String noSecondWordMessage(String commandString) {
+        return "What do you want to " + commandString + "?";
+    }
 
     /**
      * Returns a comma separated list of the words in the array.

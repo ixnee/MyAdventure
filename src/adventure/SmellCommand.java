@@ -1,14 +1,14 @@
 package adventure;
 // -------------------------------------------------------------------------
 /**
- *  Implementation of the 'eat' user command for adventure games.
+ *  Implementation of the 'smell' user command for adventure games.
  *  Follow it with additional details about its purpose, what abstraction
  *  it represents, and how to use it.
  *
  *  @author Lisa Balogh
  *  @version Apr 11, 2017
  */
-public class EatCommand
+public class SmellCommand
     extends Command
 {
     @Override
@@ -18,7 +18,7 @@ public class EatCommand
         EnhancedRoom room = (EnhancedRoom) playerArg.getCurrentRoom();
 
         if (!this.hasSecondWord()) {
-            return Message.noSecondWordMessage("eat");
+            return Message.noSecondWordMessage("smell");
         }
 
         // access the item via the second word
@@ -28,22 +28,22 @@ public class EatCommand
         {
             Item item = player.getItem(nounString);
             String objName = item.getName();
-            if (item.isEdible())
+            if (item.hasSmell())
             {
-                if (objName.equals("peanut-butter"))
-                {
-                    player.setPeanutButter();
-                    player.removeItem(item);
-                    return Message.eatSuccessMessage(objName);
-                }
-                return Message.eatSuccessMessage(objName);
+                return Message.smellSuccessMessage(objName);
             }
-            return Message.eatNotEdibleMessage(objName);
+            return Message.hasNoSmellMessage(objName);
         }
         // item is not in the inventory
         else if (room.containsItem(nounString))
         {
-            return Message.dontHaveMessage(nounString);
+            Item item = room.getItem(nounString);
+            String objName = item.getName();
+            if (item.hasSmell())
+            {
+                return Message.smellSuccessMessage(objName);
+            }
+            return Message.hasNoSmellMessage(objName);
         }
         // item is not in the room or inventory
         return Message.cantSeeMessage(nounString);

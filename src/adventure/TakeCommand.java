@@ -18,26 +18,41 @@ public class TakeCommand
         EnhancedRoom room = (EnhancedRoom) playerArg.getCurrentRoom();
 
         if (!this.hasSecondWord()) {
-            return "What do you want to take?";
+            return Message.noSecondWordMessage("take");
         }
 
         // access the item via the second word
         String nounString = this.getSecondWord();
 
-        // item can be in the room that the player is in
-        if (room.containsItem(nounString)) {
-            Item item = room.getItem(nounString);
-            String objName = item.getName();
-            player.addItem(item);
-            room.removeItem(item);
-            return Message.takeSuccessMessage(objName);
-        }
-
-        // item can be in the player's inventory (create enhanced player)
-        else if (player.hasItem(nounString)) {
+        // item can be in the player's inventory
+        if (player.hasItem(nounString))
+        {
             Item item = player.getItem(nounString);
             String objName = item.getName();
             return Message.takeAlreadyHaveMessage(objName);
+        }
+
+        // item can be in the room that the player is in
+        else if (room.containsItem(nounString))
+        {
+            if (player.getInventorySize() < 3 &&
+                player.getInventoryWeight() < 30)
+            {
+                Item item = room.getItem(nounString);
+                String objName = item.getName();
+                if (!item.isPortable())
+                {
+                    return Message.takeFailMessage(objName);
+                }
+                if (item.isLocked())
+                {
+                    return Message.takeLockedMessage(objName);
+                }
+                player.addItem(item);
+                room.removeItem(item);
+                return Message.takeSuccessMessage(objName);
+            }
+            return Message.takeNotEnoughRoomMessage(nounString);
         }
 
         // item is not in the room or the inventory
